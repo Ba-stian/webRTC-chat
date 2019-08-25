@@ -8,7 +8,9 @@
     "build": "NODE_ENV=production && webpack --mode=production",
     "test:ui": "npm run eslint && npm run stylelint",
     "eslint": "eslint --ext .js --ext .jsx src",
-    "stylelint": "stylelint src/**/*.css"
+    "stylelint": "stylelint src/**/*.css",
+    "socket": "nodemon node server.js",
+    "app": "concurrently \"npm run  \"npm run socket\""
   },
   "repository": {
     "type": "git",
@@ -51,8 +53,14 @@
     "webpack-dev-server": "^3.7.0"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
+    "socket.io": "^2.2.0",
+    "socket.io-client": "^2.2.0"
   }
 }
