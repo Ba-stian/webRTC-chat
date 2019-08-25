@@ -9,8 +9,7 @@
     "test:ui": "npm run eslint && npm run stylelint",
     "eslint": "eslint --ext .js --ext .jsx src",
     "stylelint": "stylelint src/**/*.css",
-    "socket": "nodemon node server.js",
-    "app": "concurrently \"npm run  \"npm run socket\""
+    "socket": "nodemon node server.js"
   },
   "repository": {
     "type": "git",
