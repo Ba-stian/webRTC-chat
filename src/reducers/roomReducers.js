@@ -1,12 +1,13 @@
 const initialState = {
-	room: 'Главная',
+	room: ['Главная']
 };
 
 const createRoom = (state = initialState, action) => {
 	switch (action.type) {
 	case 'ROOM_ADDED':
 		return {
-			room: action.payload,
+			...state,
+			room: [...state.room, action.payload],
 		};
 	default:
 		return {

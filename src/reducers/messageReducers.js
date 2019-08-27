@@ -1,12 +1,13 @@
 const initialState = {
-	message: '',
+	message: [],
 };
 
 const createMessage = (state = initialState, action) => {
 	switch (action.type) {
 	case 'MESSAGE_SENDED':
 		return {
-			message: action.payload,
+			...state,
+			message: [...state.message, action.payload],
 		};
 	default:
 		return {
