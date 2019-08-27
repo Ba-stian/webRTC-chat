@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import style from './room.css';
 
 const Room = ({ room }) => (
 	<>
-		<p>{room || ''}</p>
+		{room.map(rm => <p className={style.room} key={Math.random()}>{rm || ''}</p>)}
 	</>
 );
 
@@ -14,7 +15,7 @@ const mapStateToProps = ({ room }) => ({
 });
 
 Room.propTypes = {
-	room: PropTypes.string.isRequired,
+	room: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 
