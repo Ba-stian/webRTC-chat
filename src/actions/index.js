@@ -12,3 +12,7 @@ export const roomAdded = room => ({
 	type: 'ROOM_ADDED',
 	payload: room,
 });
+
+export const userLogout = () => ({
+	type: 'USER_LOGOUT',
+});

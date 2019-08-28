@@ -8,6 +8,10 @@ const createUser = (state = initialState, action) => {
 		return {
 			user: action.payload,
 		};
+	case 'USER_LOGOUT':
+		return {
+			user: initialState.user,
+		};
 	default:
 		return {
 			user: state.user,
