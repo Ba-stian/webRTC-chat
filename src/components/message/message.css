@@ -1,0 +1,14 @@
+.message {
+	display: flex;
+	flex-direction: column;
+}
+
+.text {
+	font-size: 16px;
+	padding: 4px 0;
+}
+
+.sign {
+	font-size: 13px;
+	color: rgba(0, 0, 0, 0.6);
+}

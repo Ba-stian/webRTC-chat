@@ -1,0 +1,51 @@
+.container {
+	max-width: 900px;
+	height: 800px;
+	margin: 0 auto;
+	border-radius: 20px;
+}
+
+.chat {
+	display: flex;
+	flex-direction: column;
+}
+
+.features {
+	background: #3a7aa9d9;
+	border-top-right-radius: 20px;
+	border-top-left-radius: 20px;
+}
+
+.main {
+	display: flex;
+	height: 650px;
+}
+
+.rooms {
+	background: #9cc6ff;
+	width: 30%;
+	padding: 10px;
+	box-sizing: border-box;
+}
+
+.messages {
+	width: 70%;
+	background: #d2d2d2;
+	padding: 10px;
+}
+
+.footer {
+	display: flex;
+}
+
+.new_room {
+	background: #bddcff;
+	width: 30%;
+	border-bottom-left-radius: 20px;
+}
+
+.new_message {
+	width: 70%;
+	border-bottom-right-radius: 20px;
+	background: #407ba8;
+}

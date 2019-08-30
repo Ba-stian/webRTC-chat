@@ -1,0 +1,15 @@
+@font-face {
+	font-family: Bitter, serif;
+	src: url(https://fonts.googleapis.com/css?family=Bitter&display=swap);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: Bitter, serif;
+}
+
+.app {
+	margin: 5% auto;
+}
