@@ -32,6 +32,23 @@
 	width: 70%;
 	background: #d2d2d2;
 	padding: 10px;
+	overflow: auto;
+}
+
+.messages::-webkit-scrollbar {
+	width: .9em;
+}
+
+.messages::-webkit-scrollbar-button {
+	background: #6295cb;
+}
+
+.messages::-webkit-scrollbar-track {
+	background: #acf;
+}
+
+.messages::-webkit-scrollbar-thumb {
+	background: #7bf;
 }
 
 .footer {
