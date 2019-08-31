@@ -12,8 +12,30 @@ const io = require('socket.io').listen(server);
 
 app.use(express.static(publicPath));
 
-io.on('connection', () => {
-	console.log('new user connected');
+
+io.on('connection', (socket) => {
+	console.log('new connection');
+	socket.on('USER_CONNECTED', () => {
+		io.emit('USER_CONNECTED');
+		console.log('USER_CONNECTED');
+	});
+	socket.on('USER_LOGOUT', () => {
+		io.emit('USER_LOGOUT');
+		console.log('USER_LOGOUT');
+	});
+	socket.on('MESSAGE_SENDED', (message, user) => {
+		io.emit('MESSAGE_SENDED', message, user);
+		console.log('MESSAGE_SENDED', message, user);
+		io.emit('MESSAGE_ACCEPTED', message, user)
+	});
+	socket.on('ROOM_CREATED', () => {
+		io.emit('ROOM_CREATED');
+		console.log('ROOM_CREATED');
+	});
+	socket.on('create', (room) => {
+		socket.join(room);
+		console.log(room, socket);
+	});
 });
 
 
