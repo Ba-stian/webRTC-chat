@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import style from './message.css';
 
 
-const Message = ({ user, message }) => {
+const Message = ({ messages }) => {
 	const time = new Date().toLocaleString('ru', { hour: 'numeric', minute: 'numeric' });
 	return (
 		<>
-			{message.map(msg => (
+			{messages.map(({ message, user }) => (
 				<div className={style.message} key={Math.random()}>
-					<p className={style.sign}>{message && user}</p>
-					<p className={style.text}>{msg}</p>
-					<p className={style.sign}>{message && time}</p>
+					<p className={style.sign}>{user}</p>
+					<p className={style.text}>{message}</p>
+					<p className={style.sign}>{time}</p>
 				</div>
 			))}
 		</>
@@ -20,8 +20,7 @@ const Message = ({ user, message }) => {
 
 
 Message.propTypes = {
-	user: PropTypes.string.isRequired,
-	message: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+	messages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 };
 
 
