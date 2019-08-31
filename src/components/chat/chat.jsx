@@ -9,20 +9,15 @@ import SendMessage from '../message/sendmessage';
 
 class Chat extends Component {
 	state = {
-		room: ['Главная'],
+		room: '',
 		rooms: ['Главная'],
 		message: '',
 		messages: [],
 	};
 
 	componentWillMount() {
-		const { socket } = this.props;
-		socket.on('MESSAGE_ACCEPTED', (message, user) => {
-			console.log('add message', message, user);
-			this.setState(({ messages }) => ({
-				messages: [...messages, { message, user }],
-			}));
-		});
+		this.addMessage();
+		this.createRoom();
 	}
 
 	componentWillUnmount() {
@@ -31,9 +26,8 @@ class Chat extends Component {
 	}
 
 	onRoomAdd = (room) => {
-		this.setState(prevState => ({
-			room: [...prevState.room, room],
-		}));
+		const { socket } = this.props;
+		socket.emit('ROOM_ADDED', room);
 	};
 
 	onMessageSend = (message) => {
@@ -43,10 +37,28 @@ class Chat extends Component {
 		this.setState({ message: '' });
 	};
 
+	addMessage() {
+		const { socket } = this.props;
+		socket.on('MESSAGE_ACCEPTED', (message, user) => {
+			this.setState(({ messages }) => ({
+				messages: [...messages, { message, user }],
+			}));
+		});
+	}
+
+	createRoom() {
+		const { socket } = this.props;
+		socket.on('ROOM_CREATED', (room) => {
+			this.setState(({ rooms }) => ({
+				rooms: [...rooms, room],
+			}));
+		});
+	}
+
 
 	render() {
-		const { room, messages } = this.state;
-		const { user, onLogout, socket } = this.props;
+		const { rooms, messages } = this.state;
+		const { user, onLogout } = this.props;
 		console.log(this.state);
 		return (
 			<div className={chat.container}>
@@ -56,7 +68,7 @@ class Chat extends Component {
 					</div>
 					<div className={chat.main}>
 						<div className={chat.rooms}>
-							<Room room={room} />
+							<Room room={rooms} />
 						</div>
 						<div className={chat.messages}>
 							<Message messages={messages} />
@@ -64,12 +76,10 @@ class Chat extends Component {
 					</div>
 					<div className={chat.footer}>
 						<div className={chat.new_room}>
-							<AddRoom onRoomAdd={this.onRoomAdd} socket={socket} />
+							<AddRoom onRoomAdd={this.onRoomAdd} />
 						</div>
 						<div className={chat.new_message}>
-							<SendMessage
-								onMessageSend={this.onMessageSend}
-							/>
+							<SendMessage onMessageSend={this.onMessageSend} />
 						</div>
 					</div>
 				</div>

@@ -15,26 +15,22 @@ app.use(express.static(publicPath));
 
 io.on('connection', (socket) => {
 	console.log('new connection');
-	socket.on('USER_CONNECTED', () => {
+	socket.on('USER_CONNECTED', (user) => {
 		io.emit('USER_CONNECTED');
-		console.log('USER_CONNECTED');
+		console.log('USER_CONNECTED', user);
 	});
 	socket.on('USER_LOGOUT', () => {
 		io.emit('USER_LOGOUT');
 		console.log('USER_LOGOUT');
 	});
 	socket.on('MESSAGE_SENDED', (message, user) => {
-		io.emit('MESSAGE_SENDED', message, user);
 		console.log('MESSAGE_SENDED', message, user);
-		io.emit('MESSAGE_ACCEPTED', message, user)
+		io.emit('MESSAGE_ACCEPTED', message, user);
 	});
-	socket.on('ROOM_CREATED', () => {
-		io.emit('ROOM_CREATED');
-		console.log('ROOM_CREATED');
-	});
-	socket.on('create', (room) => {
+	socket.on('ROOM_ADDED', (room) => {
 		socket.join(room);
-		console.log(room, socket);
+		console.log('ROOM_ADDED', room);
+		io.emit('ROOM_CREATED', room);
 	});
 });
 
