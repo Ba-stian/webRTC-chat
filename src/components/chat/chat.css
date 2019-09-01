@@ -26,6 +26,7 @@
 	width: 30%;
 	padding: 10px;
 	box-sizing: border-box;
+	overflow: auto;
 }
 
 .messages {
@@ -36,18 +37,25 @@
 }
 
 .messages::-webkit-scrollbar {
-	width: .9em;
+	width: 0.9em;
 }
 
-.messages::-webkit-scrollbar-button {
+.rooms::-webkit-scrollbar {
+	width: 0.5em;
+}
+
+.messages::-webkit-scrollbar-button,
+.rooms::-webkit-scrollbar-button {
 	background: #6295cb;
 }
 
-.messages::-webkit-scrollbar-track {
+.messages::-webkit-scrollbar-track,
+.rooms::-webkit-scrollbar-track {
 	background: #acf;
 }
 
-.messages::-webkit-scrollbar-thumb {
+.messages::-webkit-scrollbar-thumb,
+.rooms::-webkit-scrollbar-thumb {
 	background: #7bf;
 }
 

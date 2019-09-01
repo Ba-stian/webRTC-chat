@@ -20,7 +20,7 @@ const Message = ({ messages }) => {
 
 
 Message.propTypes = {
-	messages: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+	messages: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
 

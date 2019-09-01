@@ -17,6 +17,7 @@ const Features = ({ user, onLogout }) => (
 
 Features.propTypes = {
 	user: PropTypes.string.isRequired,
+	onLogout: PropTypes.func.isRequired,
 };
 
 export default Features;

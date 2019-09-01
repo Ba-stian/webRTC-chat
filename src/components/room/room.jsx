@@ -2,16 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import style from './room.css';
 
-const Room = ({ room }) => (
+const Room = ({ rooms, changeRoom, activeRoom }) => (
 	<>
-		{room.map(rm => <p className={style.room} key={Math.random()}>{rm || ''}</p>)}
+		{rooms.map((room) => {
+			const linkClasses = activeRoom === room ? style.active : '';
+			return (
+				<button
+					type="button"
+					onClick={() => changeRoom(room)}
+					className={`${style.room} ${linkClasses}`}
+					key={Math.random()}
+				>
+					{room}
+				</button>
+
+			);
+		})}
 	</>
 );
 
 
 Room.propTypes = {
-	room: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+	rooms: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+	changeRoom: PropTypes.func.isRequired,
+	activeRoom: PropTypes.string.isRequired,
 };
 
 
 export default Room;
+// Visible, non-interactive elements with click handlers must have at least one keyboard listener
+// Static HTML elements with event handlers require a role

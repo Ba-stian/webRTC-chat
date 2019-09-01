@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import io from 'socket.io-client';
+import { Route, Switch } from 'react-router-dom';
 import app from './app.css';
 import Chat from '../chat';
 import User from '../user';
-
 
 class App extends Component {
 	state = {
@@ -11,7 +11,7 @@ class App extends Component {
 		socket: '',
 	};
 
-	componentDidMount() {
+	componentWillMount() {
 		this.initSocket();
 	}
 
@@ -27,15 +27,11 @@ class App extends Component {
 		this.setState({
 			user: username,
 		});
-		this.addUser();
-	};
-
-	addUser = () => {
-		const { socket, user } = this.state;
-		socket.emit('USER_CONNECTED', user);
 	};
 
 	onLogout = () => {
+		const { socket, user } = this.state;
+		socket.emit('USER_LOGOUT', user);
 		this.setState({
 			user: '',
 		});
@@ -45,14 +41,14 @@ class App extends Component {
 		const { user, socket } = this.state;
 		if (!user) {
 			return (
-				<div className={app.app}>
-					<User onUserSubmit={this.onUserSubmit} />
-				</div>
+				<User onUserSubmit={this.onUserSubmit} />
 			);
 		}
 		return (
 			<div className={app.app}>
-				<Chat user={user} onLogout={this.onLogout} socket={socket} />
+				<Switch>
+					<Route path="/:room?" component={() => <Chat user={user} onLogout={this.onLogout} socket={socket} />} />
+				</Switch>
 			</div>
 		);
 	}
