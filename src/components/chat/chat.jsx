@@ -17,10 +17,11 @@ class Chat extends Component {
 
 	panelRef = React.createRef();
 
-	componentWillMount() {
-		this.addMessage();
+
+	componentDidMount() {
+		const { socket, match: { params } } = this.props;
 		this.connectUser();
-		const { socket, history, match: { params } } = this.props;
+		this.initMainRoom();
 		socket.on('ROOM_CREATED', (room) => {
 			this.setState(({ rooms }) => ({
 				rooms: [...rooms, room],
@@ -30,17 +31,14 @@ class Chat extends Component {
 		socket.emit('REQUEST_ROOMS');
 		socket.on('SEND_ROOMS', (rooms) => {
 			this.setState({ rooms });
-			if (rooms.indexOf(params.room) === -1) {
-				history.push('/main');
-			}
 		});
 		socket.emit('REQUEST_ROOM_MESSAGES', params.room);
 		socket.on('SEND_ROOM_MESSAGES', (messages) => {
 			console.log(messages);
 			this.setState({ messages });
 		});
+		this.addMessage();
 	}
-
 
 	componentDidUpdate() {
 		this.scrollToBottom();
@@ -80,6 +78,15 @@ class Chat extends Component {
 	connectUser() {
 		const { user, socket } = this.props;
 		socket.emit('USER_CONNECTED', user);
+	}
+
+	initMainRoom() {
+		const { socket, history } = this.props;
+		socket.on('SEND_ROOMS', (room) => {
+			if (!room.length) {
+				socket.emit('ROOM_ADDED', 'main');
+			}
+		});
 	}
 
 	scrollToBottom() {

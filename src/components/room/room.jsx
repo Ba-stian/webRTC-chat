@@ -30,5 +30,3 @@ Room.propTypes = {
 
 
 export default Room;
-// Visible, non-interactive elements with click handlers must have at least one keyboard listener
-// Static HTML elements with event handlers require a role
